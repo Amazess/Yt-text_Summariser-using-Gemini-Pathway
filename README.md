@@ -1,52 +1,108 @@
-## This repository features an application that utilizes Google Gemini Pro and Streamlit to transcribe and summarize YouTube videos.
+# YouTube Video Transcription and Summarization App
+
+This repository contains an application that utilizes **Google Gemini Pro** and **Streamlit** to transcribe and summarize YouTube videos. Additionally, it supports asking further questions about the video content using a Docker-based local server.
+
+---
+
+## Features
+- Transcribe YouTube videos.
+- Summarize video content.
+- Ask follow-up questions about video content (requires Docker).
+
+---
 
 ## Installation
 
-1. Clone the repository:
+### Prerequisites
+- Python 3.10 or above 
+- Docker (for advanced features)
 
-git clone ""
+### Steps
 
-2. Install dependencies:
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
 
-pip install -r requirements1.txt
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements1.txt
+   ```
 
-3. Configure Google Gemini Pro API.
+3. **Configure Google Gemini Pro API**
+   - Set up your Google Gemini Pro API credentials as per the official documentation.
 
-4. Run the app:
+4. **Run the app:**
+   ```bash
+   streamlit run web-app.py
+   ```
 
-streamlit run web-app.py
+   - Open the provided local URL in your browser.
+   - Enter the YouTube video link to get the summary.
 
-## Now put the video link and you can get the summary of the video.
+---
 
-## If you get an error for 'Error extracting transcript' try running the below command
+## Troubleshooting
 
-## Firstly try clicking the button "Get detailed notes" twice if that doesnt work try this:
+### Error: `Error extracting transcript`
+1. Try clicking the **"Get detailed notes"** button twice.
+2. If the error persists, upgrade the YouTube Transcript API:
+   ```bash
+   pip install --upgrade youtube-transcript-api
+   ```
 
-pip install --upgrade youtube-transcript-api
+---
 
-## If you want to ask any further questions about the video you can have to run the docker locally for that
+## Advanced Features: Asking Questions
 
-## to get the prerequisites visit these links:
+To enable the Q&A feature, you need to run the application using Docker.
 
-## https://dsg-iit-roorkee.gitbook.io/dsg-iit-roorkee-bootcamp/module-5-hands-on-development/prerequisites-must
+### Prerequisites
+- Complete the prerequisites from these links:
+  - [Development Prerequisites](https://dsg-iit-roorkee.gitbook.io/dsg-iit-roorkee-bootcamp/module-5-hands-on-development/prerequisites-must)
+  - [Docker Basics](https://dsg-iit-roorkee.gitbook.io/dsg-iit-roorkee-bootcamp/module-5-hands-on-development/docker-basics)
 
-## https://dsg-iit-roorkee.gitbook.io/dsg-iit-roorkee-bootcamp/module-5-hands-on-development/docker-basics
+### Steps
 
-## After the prerequisites are done run the following commands on powershell:
-## inside the demo1 folder
+1. **Navigate to the `demo1` folder:**
+   ```bash
+   cd demo1
+   ```
 
-docker build -t rag .
+2. **Build the Docker image:**
+   ```bash
+   docker build -t rag .
+   ```
 
-docker run -v "${PWD}/data:/app/data" -p 8000:8000 rag 
+3. **Run the Docker container:**
+   ```bash
+   docker run -v "${PWD}/data:/app/data" -p 8000:8000 rag
+   ```
 
-## ---- {PWD is your working directory}
+   - `{PWD}` refers to your current working directory.
 
-## Now the server is up you can ask any question with the following prompt in another terminal
+4. **Ask questions about the video:**
+   In a new terminal, run the following command:
+   ```powershell
+   $body = @{ prompt = "Your Question" }
+   Invoke-RestMethod -Method Post -Uri "http://localhost:8000/v1/pw_ai_answer" -ContentType "application/json" -Body ($body | ConvertTo-Json)
+   ```
 
-$body = @{
-    prompt = "Your Question"
-}
+---
 
-Invoke-RestMethod -Method Post -Uri "http://localhost:8000/v1/pw_ai_answer" -ContentType "application/json" -Body ($body | ConvertTo-Json)
+## Notes
+- Ensure all dependencies are correctly installed.
+- Use Docker for enhanced functionality such as follow-up questions.
 
-## Thanks
+---
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+## Acknowledgements
+- [Streamlit Documentation](https://docs.streamlit.io/)
+- [Docker Documentation](https://docs.docker.com/)
+- [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api)
