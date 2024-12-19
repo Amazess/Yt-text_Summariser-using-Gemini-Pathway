@@ -105,4 +105,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Acknowledgements
 - [Streamlit Documentation](https://docs.streamlit.io/)
 - [Docker Documentation](https://docs.docker.com/)
-- [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api)
+
